@@ -12,7 +12,7 @@ module Griddler
 
       def normalize_params
         {
-          to: extract_recipients,
+          to: full_email(params[:ToFull].first),
           from: params[:FromFull][:Email],
           subject: params[:Subject],
           text: params[:TextBody],
@@ -24,10 +24,6 @@ module Griddler
       private
 
       attr_reader :params
-
-      def extract_recipients
-        params[:ToFull].map { |recipient| full_email(recipient) }
-      end
 
       def full_email(contact_info)
         email = contact_info[:Email]
